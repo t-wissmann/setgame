@@ -91,13 +91,13 @@ bool SetCard::matchesInt(int n1, int n2, int n3)
 void SetCard::randomize()
 {
     Shape rgShapes[] = { SHAPEROUND, SHAPERECT, SHAPEWAVE };
-    m_eShape = rgShapes[(rand() % 3)];
+    m_eShape = rgShapes[rand() % 3];
     Fill rgFills[] = { FILLSOLID, FILLDOT, FILLEMPTY };
-    m_eFill = rgFills[(rand() % 3)];
+    m_eFill = rgFills[rand() % 3];
     Color rgColors[] = { COLORRED, COLORPURPLE, COLORGREEN };
-    m_eColor = rgColors[(rand() % 3)];
+    m_eColor = rgColors[rand() % 3];
     Count rgCounts[] = { COUNT1, COUNT2, COUNT3 };
-    m_eCount = rgCounts[(rand() % 3)];
+    m_eCount = rgCounts[rand() % 3];
 }
 
 
