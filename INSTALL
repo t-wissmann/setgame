@@ -1,0 +1,13 @@
+
+how to build setgame:
+requierements: qt4
+run on commandline:
+
+qmake
+make
+# then you can run setgame with:
+./setgame
+
+
+(installing is not possible yet)
+
