@@ -1,0 +1,17 @@
+
+# ignore backup-files
+*~
+
+# ignore object files:
+*.[oa]
+# ignore meta object compiler - files
+moc_*.cpp
+moc_*.h
+
+# ignore binaries
+setgame
+
+# ignore generated files for compiling
+Makefile
+
+
