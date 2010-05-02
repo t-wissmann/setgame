@@ -1,6 +1,7 @@
 
 #include "setcardwidget.h"
 #include "setcard.h"
+#include <math.h>
 
 // for rendering card
 #include <QPen>
@@ -51,8 +52,41 @@ QPainterPath SetCardWidget::cardShape(SetCard* pSetCard, QRect cRect)
         case SetCard::SHAPEWAVE:
             // convert Rect do float-rect (QRectF)
             QRectF cRectF(cRect);
-            cPath.moveTo(cRect.x(), cRect.y());
-            cPath.cubicTo(cRectF.bottomLeft(), cRectF.topRight(), cRectF.bottomRight());
+            double dDiaByHeight = cRectF.height()/6;
+            double dDiaByWidth = cRectF.width()/6;
+            // diameter of small circle
+            double dDia = (dDiaByHeight < dDiaByWidth)?dDiaByHeight:dDiaByWidth;
+            double dBigDia = dDia * 4;
+            /* dDia = diameter = 1 lineheight
+            +            ____
+            |           <    \
+            |   _________>    \
+            | /               /
+            |/   ____________/
+            |\  < 
+            | \__>
+            +<--- bottomLeft
+            */
+            cPath.moveTo(cRect.bottomLeft().x()+dBigDia/2, cRect.bottomLeft().y());
+            QRectF circle(cRect.bottomLeft() + QPointF(0, -dBigDia),
+                          QSize(dBigDia, dBigDia));
+            cPath.arcTo(circle, 270, -180);
+            circle = QRectF(cRect.topRight() + QPointF(-dBigDia+dDia, dDia),
+                            QSize(dDia,dDia));
+            cPath.arcTo(circle, 270, 180);
+            circle = QRectF(cRect.topRight() + QPointF(-dBigDia+dDia, 0),
+                            QSize(dDia,dDia));
+            cPath.arcTo(circle, 270, -180);
+            circle = QRectF(cRect.topRight() + QPointF(-dBigDia, 0),
+                            QSize(dBigDia,dBigDia));
+            cPath.arcTo(circle, 90, -180);
+            circle = QRectF(cRect.bottomLeft() + QPointF(dBigDia-2*dDia, -2*dDia),
+                          QSize(dDia, dDia));
+            cPath.arcTo(circle, 90, 180);
+            circle = QRectF(cRect.bottomLeft() + QPointF(dBigDia-2*dDia, -dDia),
+                          QSize(dDia, dDia));
+            cPath.arcTo(circle, 90, -180);
+            cPath.closeSubpath();
             break;
     }
     return cPath;
