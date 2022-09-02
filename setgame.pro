@@ -3,7 +3,8 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = 
+TARGET = setgame
+QT += widgets
 DEPENDPATH += . src
 INCLUDEPATH += . src
 
